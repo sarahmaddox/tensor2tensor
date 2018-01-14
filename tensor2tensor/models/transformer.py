@@ -102,7 +102,7 @@ class Transformer(t2t_model.T2TModel):
           encoder-decoder attention. [batch_size, input_length]
       decoder_self_attention_bias: Bias and mask weights for decoder
           self-attention. [batch_size, decoder_length]
-      hparams: hyperparmeters for model.
+      hparams: hyperparameters for model.
       cache: dict, containing tensors which are the results of previous
           attentions, used for fast decoding.
       nonpadding: optional Tensor with shape [batch_size, decoder_length]
@@ -137,7 +137,7 @@ class Transformer(t2t_model.T2TModel):
     Args:
       features: Map of features to the model. Should contain the following:
           "inputs": Transformer inputs [batch_size, input_length, hidden_dim]
-          "tragets": Target decoder outputs.
+          "targets": Target decoder outputs.
               [batch_size, decoder_length, hidden_dim]
           "target_space_id"
 
@@ -168,7 +168,7 @@ class Transformer(t2t_model.T2TModel):
     """Fast version of greedy decoding.
 
     Args:
-      features: an map of string to `Tensor`
+      features: a map of string to `Tensor`
       decode_length: an integer.  How many additional timesteps to decode.
 
     Returns:
@@ -187,12 +187,12 @@ class Transformer(t2t_model.T2TModel):
     """Beam search decoding.
 
     Args:
-      features: an map of string to `Tensor`
+      features: a map of string to `Tensor`
       decode_length: an integer.  How many additional timesteps to decode.
       beam_size: number of beams.
       top_beams: an integer. How many of the beams to return.
-      alpha: Float that controls the length penalty. larger the alpha, stronger
-        the preference for slonger translations.
+      alpha: Float that controls the length penalty. The larger the alpha,
+        the stronger the preference for longer translations.
 
     Returns:
        samples: an integer `Tensor`. Top samples from the beam search
@@ -214,12 +214,12 @@ class Transformer(t2t_model.T2TModel):
     beam_size > 1, otherwise beam search related arguments are ignored.
 
     Args:
-      features: a map of string to model  features.
+      features: a map of string to model features.
       decode_length: an integer.  How many additional timesteps to decode.
       beam_size: number of beams.
       top_beams: an integer. How many of the beams to return.
-      alpha: Float that controls the length penalty. larger the alpha, stronger
-        the preference for slonger translations.
+      alpha: Float that controls the length penalty. The larger the alpha,
+        the stronger the preference for longer translations.
 
     Returns:
        samples: an integer `Tensor`. Top samples from the beam search
@@ -271,7 +271,7 @@ class Transformer(t2t_model.T2TModel):
 
       Args:
         targets: inputs ids to the decoder. [batch_size, 1]
-        i: scalar, Step number of the decoding loop.
+        i: scalar, step number of the decoding loop.
 
       Returns:
         Processed targets [batch_size, 1, hidden_dim]
@@ -353,8 +353,8 @@ def fast_decode(encoder_output,
     vocab_size: Output vocabulary size.
     beam_size: number of beams.
     top_beams: an integer. How many of the beams to return.
-    alpha: Float that controls the length penalty. larger the alpha, stronger
-      the preference for slonger translations.
+    alpha: Float that controls the length penalty. The larger the alpha,
+      the stronger the preference for longer translations.
     eos_id: End-of-sequence symbol in beam search.
 
   Returns:
@@ -652,7 +652,7 @@ def transformer_decoder(decoder_input,
     name: a string
     nonpadding: optional Tensor with shape [batch_size, encoder_length]
       indicating what positions are not padding.  This is used
-      to mask out padding in convoltutional layers.  We generally only
+      to mask out padding in convolutional layers.  We generally only
       need this mask for "packed" datasets, because for ordinary datasets,
       no padding is ever followed by nonpadding.
     save_weights_to: an optional dictionary to capture attention weights
